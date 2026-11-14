@@ -1,0 +1,152 @@
+{
+  "exchanges": [
+    {
+      "path": "/articles",
+      "method": "GET",
+      "body": {
+        "items": [
+          {
+            "articleId": "a1",
+            "version": "v1"
+          }
+        ]
+      },
+      "requires": {},
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/articles/a1",
+      "method": "GET",
+      "body": {
+        "front": {
+          "articleId": "a1",
+          "title": "工厂参观与公众教育",
+          "version": "v1"
+        },
+        "body": [
+          {
+            "kind": "sec",
+            "id": "s1",
+            "children": [
+              {
+                "kind": "p",
+                "text": "见图一",
+                "children": [
+                  {
+                    "kind": "xref",
+                    "refType": "fig",
+                    "rid": "f1",
+                    "text": "图一"
+                  }
+                ]
+              },
+              {
+                "kind": "fig",
+                "id": "f1",
+                "text": "车间布局"
+              }
+            ]
+          },
+          {
+            "kind": "supplementary-material",
+            "id": "supp",
+            "href": "/assets/s1"
+          }
+        ],
+        "back": [
+          {
+            "kind": "ref",
+            "id": "r1",
+            "text": "参考文献"
+          }
+        ],
+        "subArticles": []
+      },
+      "requires": {},
+      "sets": {},
+      "status": 200,
+      "query": {}
+    },
+    {
+      "path": "/assets/s1",
+      "method": "GET",
+      "body": {
+        "owner": "a1",
+        "version": "v1",
+        "mediaType": "text/plain",
+        "data": "c3VwcGxlbWVudA==",
+        "sha256": "03dd65bf2241cb43fca671891c99e3b22598a1f96bf6f8d94401521a3eac9e90"
+      },
+      "requires": {},
+      "sets": {},
+      "status": 200,
+      "query": {}
+    }
+  ],
+  "cases": {
+    "scoped-ids": [
+      {
+        "path": "/articles/a1",
+        "method": "GET",
+        "body": {
+          "front": {
+            "articleId": "a1",
+            "title": "工厂参观与公众教育",
+            "version": "v2"
+          },
+          "body": [
+            {
+              "kind": "xref",
+              "refType": "fig",
+              "rid": "f1 f2",
+              "text": "两图"
+            },
+            {
+              "kind": "fig",
+              "id": "f1",
+              "text": "主文图"
+            },
+            {
+              "kind": "supplementary-material",
+              "id": "supp",
+              "href": "/assets/s1"
+            }
+          ],
+          "back": [],
+          "subArticles": [
+            {
+              "articleId": "reply",
+              "body": [
+                {
+                  "kind": "fig",
+                  "id": "f1",
+                  "text": "子文章图"
+                }
+              ]
+            }
+          ]
+        },
+        "requires": {},
+        "sets": {},
+        "status": 200,
+        "query": {}
+      },
+      {
+        "path": "/assets/s1",
+        "method": "GET",
+        "body": {
+          "owner": "a1",
+          "version": "v1",
+          "mediaType": "text/plain",
+          "data": "c3VwcGxlbWVudA=="
+        },
+        "requires": {},
+        "sets": {},
+        "status": 200,
+        "query": {}
+      }
+    ]
+  }
+}
