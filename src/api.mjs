@@ -1,9 +1,12 @@
 import {createServer} from 'node:http';
+import {projectRows} from './projection.mjs';
 export async function createApi(archive,port = 0) {
   const server = createServer(async (request,response) => {
     try {
-      if (request.method !== 'GET' || !['/health','/records'].includes(request.url)) {response.writeHead(404);return response.end();}
-      const body = request.url === '/health' ? {status:'ok'} : await archive.list();
+      if (request.method !== 'GET' || !['/health','/records','/projection'].includes(request.url)) {response.writeHead(404);return response.end();}
+      const body = request.url === '/health' ? {status:'ok'}
+        : request.url === '/projection' ? projectRows(await archive.list())
+        : await archive.list();
       response.writeHead(200,{'content-type':'application/json; charset=utf-8'});response.end(JSON.stringify(body,null,2));
     } catch(error) {response.writeHead(500);response.end(JSON.stringify({error:error.message}));}
   });

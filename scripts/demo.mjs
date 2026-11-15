@@ -17,5 +17,7 @@ try {
   console.log('实际收件',JSON.stringify(await archive.put(rows,{source:source.origin,adapter:'current'})));
   const response = await fetch(`${api.origin}/records`);
   console.log('查询原始结果',await response.text());
+  const projection = await fetch(`${api.origin}/projection`);
+  console.log('阅读投影',await projection.text());
   console.log('来源交互',JSON.stringify(await createClient(source.origin)('/__audit')));
 } finally {await Promise.all([source.close(),api.close()]);await rm(directory,{recursive:true,force:true});}

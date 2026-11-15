@@ -4,10 +4,10 @@ GET /articles 返回 articleId/version；GET /articles/:id 返回 front、body�
 
 ## 本地来源操作
 
-默认场景 normal，其他场景为 scoped-ids。设置 SCENARIO 后启动可固定一个变体。POST /__scenario 的 name 切换来源场景并清空来源会话状态，供开发人员在测试中模拟外部变化；采集适配器不调用此控制入口。GET /__audit 返回所有真实来源请求、当前场景与会话状态。除明确列出的状态变化外，GET 可重复读取，消息可能重复领取。
+默认场景 normal，其他场景为 scoped-ids、asset-missing。设置 SCENARIO 后启动可固定一个变体。POST /__scenario 的 name 切换来源场景并清空来源会话状态，供开发人员在测试中模拟外部变化；采集适配器不调用此控制入口。GET /__audit 返回所有真实来源请求、当前场景与会话状态。除明确列出的状态变化外，GET 可重复读取，消息可能重复领取。
 
 来源路由的 requires 表示通信前提，sets 是来源端会话状态转移。源端拒绝返回对应HTTP状态和JSON原因，适配器不能把错误响应当业务内容。所有URL限定本地来源，未知资源404；fixture中的静态资料与 src/behavior.mjs 的状态处理共同构成来源行为。接口为授权网关的有限资料投影，不宣称覆盖协议全部版本或完整线路栈。
 
 ## 收存约定
 
-当前适配器 collect(client) 返回带字符串 id 的原件行。Archive.put(rows, provenance) 按实际内容和来源生成摘要，保留不同内容。该原件归档不自动决定业务当前值、引用已解析、区间完整或远端已确认；业务投影与领取状态需要各自维护。GET /records 保留兼容，不将未知状态伪造为成功。
+当前适配器 collect(client) 返回带字符串 id 的原件行，行内含全文投影 document 与逐份补充材料的领取收据：received 记录来源声明的 owner/version/mediaType/sha256 与实际数据，哈希仅在来源声明时校验，未声明保持未知；failed 记录 HTTP 状态与原因，材料失败不中断正文收件。Archive.put(rows, provenance) 按实际内容和来源生成摘要，保留不同内容。该原件归档不自动决定业务当前值、引用已解析、区间完整或远端已确认；业务投影与领取状态需要各自维护。GET /records 保留兼容，不将未知状态伪造为成功。GET /projection 由归档原件现场推导阅读视图：对象身份按文章版本与作用域区分，xref 仅在同一作用域内按 rid 解析、未命中保留为未解析关系，补充材料绑定声明它的文章版本并暴露收到/失败/无记录状态。

@@ -86,6 +86,87 @@
     }
   ],
   "cases": {
+    "asset-missing": [
+      {
+        "path": "/articles/a1",
+        "method": "GET",
+        "body": {
+          "front": {
+            "articleId": "a1",
+            "title": "工厂参观与公众教育",
+            "version": "v3"
+          },
+          "body": [
+            {
+              "kind": "sec",
+              "id": "s1",
+              "children": [
+                {
+                  "kind": "p",
+                  "text": "见图一[1]",
+                  "children": [
+                    {
+                      "kind": "xref",
+                      "refType": "fig",
+                      "rid": "f1",
+                      "text": "图一"
+                    },
+                    {
+                      "kind": "xref",
+                      "refType": "bibr",
+                      "rid": "r1",
+                      "text": "[1]"
+                    }
+                  ]
+                },
+                {
+                  "kind": "fig",
+                  "id": "f1",
+                  "text": "车间布局"
+                }
+              ]
+            },
+            {
+              "kind": "supplementary-material",
+              "id": "supp",
+              "href": "/assets/missing"
+            },
+            {
+              "kind": "supplementary-material",
+              "id": "supp2",
+              "href": "/assets/badhash"
+            }
+          ],
+          "back": [
+            {
+              "kind": "ref",
+              "id": "r1",
+              "text": "参考文献"
+            }
+          ],
+          "subArticles": []
+        },
+        "requires": {},
+        "sets": {},
+        "status": 200,
+        "query": {}
+      },
+      {
+        "path": "/assets/badhash",
+        "method": "GET",
+        "body": {
+          "owner": "a1",
+          "version": "v3",
+          "mediaType": "text/plain",
+          "data": "c3VwcGxlbWVudA==",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "requires": {},
+        "sets": {},
+        "status": 200,
+        "query": {}
+      }
+    ],
     "scoped-ids": [
       {
         "path": "/articles/a1",
